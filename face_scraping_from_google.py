@@ -61,13 +61,10 @@ def get_person_face(imageFileName, detector):
     else:
         os.remove(imageFileName)
 
-def create_face_dataset(search_names, save_names, img_num):
-    for i in range(len(search_names)):
-        get_person_images(search_names[i], save_names[i], img_num)
-    
+def create_face_dataset(faces_path):
     # get image file name list
     fileNames = []
-    for root, subdir, files in os.walk('data/faces'):
+    for root, subdir, files in os.walk(faces_path):
         for file in files:
             #if not file.startswith('haarcascade'):
             fileName = os.path.join(root, file)
@@ -85,7 +82,10 @@ if __name__ == '__main__':
     # determine search names and save names
     search_names = ['jisooblackpink','jennieblackpink','roseblackpink','lisablackpink']
     save_names = ['Jisoo', 'Jennie','Rose','Lisa']
+
+    # get images from google
+    for i in range(len(search_names)):
+        get_person_images(search_names[i], save_names[i], img_num)
     
-    # get person image and save 
-    # (uncomment the next line if you want to do the new scraping)
-    create_face_dataset(search_names, save_names, 250)
+    # extract face from image and 
+    create_face_dataset('data/faces')
